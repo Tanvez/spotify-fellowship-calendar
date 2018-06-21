@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
-import {receivedEvents} from './store'
+import {receivedEvents, getEvents} from './store'
 import {SingleDayModal} from './components/index'
 
 class App extends Component {
@@ -65,6 +65,8 @@ const mapDispatch = (dispatch) => {
   return{
     loadInitialData(){
      dispatch(receivedEvents())
+     getEvents()
+
     }
   }
 }

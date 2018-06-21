@@ -1,6 +1,6 @@
-
+import axios from 'axios'
 const initialState = {
-	currentMonth:'JUNE',
+	currentMonth:6, // 1 = Jan and 12 = Dec
 	currentYear: 2018,
 	events:{
 		'1':[{
@@ -42,10 +42,19 @@ export const addEvent = singleEvent =>{
 }
 
 /* Thunk */
-//TODO HOOK UP TO SERVER!
 export const receivedEvents = () => 
-  dispatch => dispatch(gotEventsFromServer(initialState.events))
-//TODO HOOK UP TO SERVER
+dispatch => dispatch(gotEventsFromServer(initialState.events))
+
+export const getEvents = ()=> axios.get('/api/events')
+  .then(res=> res.data)
+  .then(events => {
+    let event = new Date(
+      events[0].start
+    ) 
+    console.log(event.getUTCMonth()+1)
+  })
+  .catch(err => console.log(err))
+
 
 /*Reducer */
 const reducer = (state = initialState, action) => {

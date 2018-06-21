@@ -3,18 +3,31 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.3",
+    "chalk": "^2.4.1",
+    "chance": "^1.0.16",
     "express": "^4.16.3",
+    "nodemon": "^1.17.5",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sequelize": "^4.37.10",
+    "volleyball": "^1.5.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start & npm run start-server ",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "eject": "react-scripts eject",
+    "start-server": "nodemon server -e html,js,scss --ignore public",
+    "seed": "node script/seed.js"
+  },
+  "proxy": "http://localhost:8080/"
 }
