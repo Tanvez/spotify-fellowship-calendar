@@ -18,14 +18,17 @@ class App extends Component {
     this.props.loadInitialData()
   }
   render() {
-    const {events} = this.props
+    const {currentMonth, currentYear, months} = this.props
     let dayArray = [];
+    let events = months[currentMonth]
+    
     for(let i = 1; i<=31; i++){
       let descript = ''
       let eventsArr = []
+      
       if(events[i]){
-        descript = events[i][0].description
         for(let evtIdx = 0; evtIdx < events[i].length; evtIdx++){
+          descript = events[i][evtIdx].description
           eventsArr.push(<div key = {evtIdx}>{descript}</div>)
         }
       }
@@ -49,7 +52,7 @@ class App extends Component {
     
     return (
       <div>
-      <h1> JUNE 2018</h1>
+      <h1> {currentMonth+' '+currentYear}</h1>
       <div className="grid-container">
         {dayArray.map(listItem=>{
           return listItem
@@ -66,14 +69,15 @@ const mapDispatch = (dispatch) => {
     loadInitialData(){
      dispatch(receivedEvents())
      getEvents()
-
     }
   }
 }
 
 const mapState = (state) => {
   return {
-    events: state.events
+    currentMonth: state.currentMonth,
+    currentYear: state.currentYear,
+    months: state.months
   }
 }
 export default connect(mapState, mapDispatch)(App) 

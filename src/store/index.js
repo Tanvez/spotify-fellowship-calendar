@@ -1,24 +1,29 @@
 import axios from 'axios'
 const initialState = {
-	currentMonth:6, // 1 = Jan and 12 = Dec
-	currentYear: 2018,
-	events:{
-		'1':[{
-			start:'1:00PM',
-			end: '2:00PM',
-			description: 'rock climbing'
-      },
+	currentMonth:'JUNE', 
+	currentYear: '2018',
+	months: {
+    'JANUARY':{'1':[{}]},
+    'JUNE':
       {
+        '1':[{
         start:'1:00PM',
         end: '2:00PM',
         description: 'rock climbing'
-      },
-      {
-        start:'1:00PM',
-        end: '2:00PM',
-        description: 'rock climbing'
-      }
-    ]
+        },
+        {
+          start:'1:00PM',
+          end: '2:00PM',
+          description: 'rock climbing'
+        },
+        {
+          start:'1:00PM',
+          end: '2:00PM',
+          description: 'rock climbing'
+        }
+      ],
+      '2':[{}]
+    }
 	}
 }
 
@@ -45,13 +50,17 @@ export const addEvent = singleEvent =>{
 export const receivedEvents = () => 
 dispatch => dispatch(gotEventsFromServer(initialState.events))
 
-export const getEvents = ()=> axios.get('/api/events')
+export const getEvents = ()=>  axios.get('/api/events')
   .then(res=> res.data)
   .then(events => {
     let event = new Date(
-      events[0].start
+      events[0].start // is an array of events
     ) 
-    console.log(event.getUTCMonth()+1)
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    let weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    let singleMonth = months[event.getMonth()]
+    
+    console.log(singleMonth,  weekdays[event.getDay()], event.getDate())
   })
   .catch(err => console.log(err))
 
@@ -60,6 +69,7 @@ export const getEvents = ()=> axios.get('/api/events')
 const reducer = (state = initialState, action) => {
   switch(action.type){
     case GOT_EVENTS_FROM_SERVER:
+
       return {...state, events:state.events }
     default:
       return state 
