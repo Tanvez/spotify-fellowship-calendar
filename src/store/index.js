@@ -1,31 +1,4 @@
 import axios from 'axios'
-const initialState = {
-	currentMonth:'JUNE', 
-	currentYear: '2018',
-	months: {
-    'JANUARY':{'1':[{}]},
-    'JUNE':
-      {
-        '1':[{
-        start:'1:00PM',
-        end: '2:00PM',
-        description: 'rock climbing'
-        },
-        {
-          start:'1:00PM',
-          end: '2:00PM',
-          description: 'rock climbing'
-        },
-        {
-          start:'1:00PM',
-          end: '2:00PM',
-          description: 'rock climbing'
-        }
-      ],
-      '2':[{}]
-    }
-	}
-}
 
 /*Action Type */
 const GOT_EVENTS_FROM_SERVER = 'GOT_EVENTS_FROM_SERVER'
@@ -39,38 +12,36 @@ export const gotEventsFromServer = events => {
   }
 }
 
-export const addEvent = singleEvent =>{
-  return {
-    type:ADD_EVENT,
-    singleEvent
-  }
-}
+// export const addEvent = singleEvent =>{
+//   return {
+//     type:ADD_EVENT,
+//     singleEvent
+//   }
+// }
 
 /* Thunk */
-export const receivedEvents = () => 
-dispatch => dispatch(gotEventsFromServer(initialState.events))
-
-export const getEvents = ()=>  axios.get('/api/events')
+export const getEvents = ()=> dispatch => 
+  axios.get('/api/events')
   .then(res=> res.data)
   .then(events => {
-    let event = new Date(
-      events[0].start // is an array of events
-    ) 
-    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    let weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    let singleMonth = months[event.getMonth()]
-    
-    console.log(singleMonth,  weekdays[event.getDay()], event.getDate())
+    dispatch(gotEventsFromServer(events))
   })
   .catch(err => console.log(err))
 
+export const addEvent = (description, start, end, userId) => dispatch => {
+  axios.post('/api/events', {description, start, end, userId})
+    .then(res=>res.data)
+    // .then(()=>
+    //   history.push('/')
+    // )
+    .catch(err=> console.log(err))
+}
 
 /*Reducer */
-const reducer = (state = initialState, action) => {
+const reducer = (state = [], action) => {
   switch(action.type){
     case GOT_EVENTS_FROM_SERVER:
-
-      return {...state, events:state.events }
+      return [...state, ...action.events]
     default:
       return state 
   }

@@ -45,7 +45,7 @@ const createApp = () => {
 }
 const startListening = () => {
   // start listening
-  const server = app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
+  app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
 }
 
 // This evaluates as true when this file is run directly from the command line,

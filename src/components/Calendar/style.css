@@ -11,4 +11,6 @@
   font-size: 30px;
   text-align: center;
 }
-
+.event-description {
+  font-size:10!important;
+}
