@@ -15,7 +15,7 @@ class App extends Component {
           {events}
           </Calendar>
         </div>
-      )
+    )
   } 
 }
 const mapDispatch = (dispatch) => {

@@ -5,7 +5,6 @@ import {SingleDayModal } from '../index'
 const Calendar = ({children})=> {
      let dayArray = []
      let events = children
-    
      /*Builds the days and the events for each of those days*/
     for(let i = 1; i<=30; i++){
       let eventDescription = ''
@@ -52,10 +51,7 @@ const Calendar = ({children})=> {
       }
       </div>
       </div>
-    )
-  
+    )  
 }
-
-
 
 export default Calendar

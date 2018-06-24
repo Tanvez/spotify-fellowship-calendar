@@ -5,7 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import EventForm from '../EventForm'
 
- class SingleDayModal extends Component {
+class SingleDayModal extends Component {
   state = {
     open: false,
     currentMonth:'June',

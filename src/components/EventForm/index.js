@@ -11,39 +11,39 @@ const {handleSubmit, onClose} = props
       <form onSubmit={handleSubmit} onClick={onClose}>
         <div>
         <TextField
-     autoFocus
-     margin="dense"
-     id="event"
-     name="description"
-     label="event description"
-   
-     fullWidth
-   />
-   <TextField
-     margin="dense"
-     id="start"
-     name="start"
-     type='time'
-     fullWidth
-   />
-   <TextField
-     margin="dense"
-     id="end"
-     name="end"
-     type='time'
-     fullWidth
-   />
-     <Button label="Submit" type="submit" color="primary">
-Submit
-    </Button>
-    </div>
+          autoFocus
+          margin="dense"
+          id="event"
+          name="description"
+          label="event description"
+          fullWidth
+        />
+        <TextField
+          margin="dense"
+          id="start"
+          name="start"
+          type='time'
+          fullWidth
+        />
+        <TextField
+          margin="dense"
+          id="end"
+          name="end"
+          type='time'
+          fullWidth
+        />
+        <Button label="Submit" type="submit" color="primary">
+          Submit
+        </Button>
+      </div>
     </form>
     <Button label="Close" type="close" color="primary" onClick={onClose} >
-    Close
+      Close
     </Button>
     </div>
   )
 }
+
 const mapDispatch = (dispatch, props)=>{
   return {
     handleSubmit (evt) {
