@@ -1,12 +1,8 @@
-import React, {Component, Children} from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+
 import Button from '@material-ui/core/Button';
-
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-import {addEvent} from '../../store'
 import EventForm from '../EventForm'
 
  class SingleDayModal extends Component {
@@ -43,30 +39,11 @@ import EventForm from '../EventForm'
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">{currentMonth+' '+ currentDay + ', ' + currentYear}</DialogTitle>
-          <EventForm date={{currentDay,currentMonth, currentYear}}/>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Close
-            </Button>
-           </DialogActions>
+          <EventForm date={{currentDay,currentMonth, currentYear}} onClose={this.handleClose}/>
         </Dialog>
       </div>
     );
   }
 }
 
-const mapDispatch = (dispatch) => {
-  return{
-    handleSubmit(evt){
-     console.log(evt.target)
-      //dispatch(addEvent(description, start, end, userId))
-    }
-  }
-}
-
-const mapState = (state) => {
-  return {
-  }
-}
-
-export default connect(mapState, mapDispatch)(SingleDayModal) 
+export default SingleDayModal

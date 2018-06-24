@@ -5,10 +5,10 @@ import TextField from '@material-ui/core/TextField';
 import { addEvent } from '../../store';
 
 const EventForm = (props) => {
-const {handleSubmit} = props
+const {handleSubmit, onClose} = props
   return(
     <div>
-      <form onSubmit={handleSubmit} >
+      <form onSubmit={handleSubmit} onClick={onClose}>
         <div>
         <TextField
      autoFocus
@@ -33,11 +33,14 @@ const {handleSubmit} = props
      type='time'
      fullWidth
    />
-     <Button labe="Submit" type="submit" color="primary">
-    Submit
+     <Button label="Submit" type="submit" color="primary">
+Submit
     </Button>
-        </div>
-      </form>
+    </div>
+    </form>
+    <Button label="Close" type="close" color="primary" onClick={onClose} >
+    Close
+    </Button>
     </div>
   )
 }
@@ -52,6 +55,9 @@ const mapDispatch = (dispatch, props)=>{
       const userId = 1 // hard coded because we did not setup multiple users
           if(startTime > endTime){
             alert('MUST END SAME DAY')
+          } 
+          if(description==='' || !evt.target.start.value || !evt.target.end.value  ) {
+            alert('MUST ENTER CORRECT FIELDS')
           } else {
             dispatch(addEvent(description, startTime.toJSON(), endTime, userId ))
          }
