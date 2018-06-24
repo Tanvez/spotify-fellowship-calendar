@@ -8,9 +8,12 @@ class App extends Component {
     this.props.loadInitialData()
   }
   render(){
+    const{events}=this.props
     return (
         <div>
-          <Calendar/>
+          <Calendar>
+          {events}
+          </Calendar>
         </div>
       )
   } 

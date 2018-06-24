@@ -1,78 +1,72 @@
-import React, {Component} from 'react';
-import './style.css'
+import React, {Component, Children} from 'react';
+import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
 
-// import Dialog from 'material-ui/Dialog'
-// import RaisedButton from 'material-ui/RaisedButton'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
-const SingleDayModal =({ handleClose, show, children }) => {
+import {addEvent} from '../../store'
+import EventForm from '../EventForm'
 
-  //   state = {
-  //     open: false,
-  //   };
-  
-  //   handleOpen = () => {
-  //     this.setState({open: true});
-  //   };
-  
-  //   handleClose = () => {
-  //     this.setState({open: false});
-  //   };
-  // render() {
-    const showHideClassName = show ? "modal display-block" : "modal display-none";
+ class SingleDayModal extends Component {
+  state = {
+    open: false,
+    currentMonth:'June',
+    currentYear:'2018',
+    currentDay: '',
+    events:[]
+  };
 
+  handleClickOpen = () => {
+    this.setState({
+      open: true,
+      currentDay:this.props.day,
+      events:this.props.events 
+    });
+
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  render() {
+    const {currentDay, currentMonth, currentYear} = this.state
+    
     return (
-      <div className={showHideClassName}>
-        <section className="modal-main">
-          {children}
-          <button onClick={handleClose}>close</button>
-        </section>
+      <div>
+        <Button onClick={this.handleClickOpen}>ADD EVENT</Button>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">{currentMonth+' '+ currentDay + ', ' + currentYear}</DialogTitle>
+          <EventForm date={{currentDay,currentMonth, currentYear}}/>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Close
+            </Button>
+           </DialogActions>
+        </Dialog>
       </div>
     );
   }
-  export default SingleDayModal
+}
 
-// export default class UserOrderModal extends Component { 
-//   state = {
-//     open: false,
-//   };
+const mapDispatch = (dispatch) => {
+  return{
+    handleSubmit(evt){
+     console.log(evt.target)
+      //dispatch(addEvent(description, start, end, userId))
+    }
+  }
+}
 
-//   handleOpen = () => {
-//     this.setState({open: true});
-//   };
+const mapState = (state) => {
+  return {
+  }
+}
 
-//   handleClose = () => {
-//     this.setState({open: false});
-//   };
-
-//   render() {
-//     const actions = [
-//       <RaisedButton
-//         label="Cancel"
-//         primary={true}
-//         onClick={this.handleClose}
-//       />,
-//       <RaisedButton
-//         label="Submit"
-//         primary={true}
-//         keyboardFocused={true}
-//         onClick={this.handleClose}
-//         style={{margin:'2em'}}
-//       />,
-//     ];
-
-
-//     return (
-//       <div>
-//         <RaisedButton label="Details" onClick={this.handleOpen} />
-//         <Dialog
-//           title="Products"
-//           actions={actions}
-//           modal={false}
-//           open={this.state.open}
-//           onRequestClose={this.handleClose}
-//           autoScrollBodyContent={true}
-//         />
-//       </div>
-//     );
-//   }
-// }
+export default connect(mapState, mapDispatch)(SingleDayModal) 

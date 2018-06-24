@@ -1,13 +1,13 @@
-//const {expect} = require('chai')
+const {expect} = require('chai')
 const request = require('supertest')
 const Event = require('../../db/models/event')
 const User = require('../../db/models/user')
 const db = require('../../db/db')
-const app = require('../index')
+const app = require('../../index')// must be root index.js where express exist
 
   describe('Event routes', ()=>{
     before(()=>db.sync({force: true}))
-     beforeEach((done)=>
+     beforeEach(()=>
     User.create({ 
       id:1,
       firstName: 'Vesna',
@@ -23,17 +23,18 @@ const app = require('../index')
         end:'2018-06-24 07:30:00.816772-04',
         userId:1
      })
-     .then(()=>done())
      )
   )
   it('/GET /api/events', (done)=>{
       request(app)
-      .get('/api/events')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect((res)=>{
-        expect(res.body).to.be.an.instanceof(Array )
+     .get('/api/events')
+      .end((err, res)=>{
+         expect(res.statusCode).to.equal(200)
+         expect(res.body).to.be.an('array') 
         done()
       })
+    })
+    it('/POST /api/events', (done)=>{
+      //TODO ENTER TEST HERE
     })
   })

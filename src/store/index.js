@@ -12,12 +12,12 @@ export const gotEventsFromServer = events => {
   }
 }
 
-// export const addEvent = singleEvent =>{
-//   return {
-//     type:ADD_EVENT,
-//     singleEvent
-//   }
-// }
+export const addedEvent = singleEvent =>{
+  return {
+    type:ADD_EVENT,
+    singleEvent
+  }
+}
 
 /* Thunk */
 export const getEvents = ()=> dispatch => 
@@ -31,9 +31,9 @@ export const getEvents = ()=> dispatch =>
 export const addEvent = (description, start, end, userId) => dispatch => {
   axios.post('/api/events', {description, start, end, userId})
     .then(res=>res.data)
-    // .then(()=>
-    //   history.push('/')
-    // )
+    .then(event=>{
+      dispatch(addedEvent(event))
+    })
     .catch(err=> console.log(err))
 }
 
@@ -42,6 +42,8 @@ const reducer = (state = [], action) => {
   switch(action.type){
     case GOT_EVENTS_FROM_SERVER:
       return [...state, ...action.events]
+    case ADD_EVENT:
+      return [...state, action.singleEvent]
     default:
       return state 
   }
