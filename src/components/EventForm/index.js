@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { addEvent } from '../../store';
+import { addEvent, editEvent } from '../../store';
 
 const EventForm = (props) => {
 const {handleSubmit, onClose} = props
@@ -16,6 +16,7 @@ const {handleSubmit, onClose} = props
           id="event"
           name="description"
           label="event description"
+          required 
           fullWidth
         />
         <TextField
@@ -23,6 +24,7 @@ const {handleSubmit, onClose} = props
           id="start"
           name="start"
           type='time'
+          required
           fullWidth
         />
         <TextField
@@ -30,14 +32,15 @@ const {handleSubmit, onClose} = props
           id="end"
           name="end"
           type='time'
+          required 
           fullWidth
         />
-        <Button label="Submit" type="submit" color="primary">
+        <Button  size='small' label="Submit" type="submit" color="primary">
           Submit
         </Button>
       </div>
     </form>
-    <Button label="Close" type="close" color="primary" onClick={onClose} >
+    <Button size='small' label="Close" type="close" color="primary" onClick={onClose} >
       Close
     </Button>
     </div>
@@ -48,18 +51,21 @@ const mapDispatch = (dispatch, props)=>{
   return {
     handleSubmit (evt) {
       evt.preventDefault()
-      const {currentDay, currentMonth, currentYear} = props.date
+      const {id,currentDay, currentMonth, currentYear} = props.date
       const description = evt.target.description.value
       const startTime = new Date(currentMonth+' '+ currentDay+' ,'+ currentYear+' '+ evt.target.start.value)
       const endTime = new Date(currentMonth+' '+ currentDay+' ,'+ currentYear+' '+ evt.target.end.value)
       const userId = 1 // hard coded because we did not setup multiple users
-          if(startTime > endTime){
+      //handles different different dispatches based on action    
+      if(startTime > endTime){
             alert('MUST END SAME DAY')
           } 
           if(description==='' || !evt.target.start.value || !evt.target.end.value  ) {
             alert('MUST ENTER CORRECT FIELDS')
-          } else {
-            dispatch(addEvent(description, startTime.toJSON(), endTime, userId ))
+          } else if (props.action ==='Add Event') {
+            dispatch(addEvent(description, startTime, endTime, userId ))
+         } else if (props.action ==='Edit Event'){
+           dispatch(editEvent(id,description, startTime, endTime, userId ))
          }
     }
   }

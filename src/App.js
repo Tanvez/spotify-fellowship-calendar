@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getEvents} from './store'
-import {Calendar} from './components/index'
+import {Year} from './containers/index'
 
 class App extends Component {
   componentDidMount(){
@@ -11,9 +11,7 @@ class App extends Component {
     const{events}=this.props
     return (
         <div>
-          <Calendar>
-          {events}
-          </Calendar>
+         <Year/>
         </div>
     )
   } 
