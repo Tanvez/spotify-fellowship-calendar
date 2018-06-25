@@ -37,10 +37,10 @@ router.put('/', (req,res,next) => {
 })
 
 //Delete an Event
-router.delete('/', (req,res,next) => {
-  const { id } = req.body
+router.delete('/:id', (req,res,next) => {
+  const { id } = req.params
   Event.destroy({ where:{id} })
-  .then((deletedEvent)=>res.sendStatus(201).send(deletedEvent))
+  .then(()=>res.sendStatus(204))
   .catch(next)
 })
 

@@ -8,7 +8,7 @@ const EventForm = (props) => {
 const {handleSubmit, onClose} = props
   return(
     <div>
-      <form onSubmit={handleSubmit} onClick={onClose}>
+      <form onSubmit={handleSubmit} >
         <div>
         <TextField
           autoFocus
@@ -35,7 +35,7 @@ const {handleSubmit, onClose} = props
           required 
           fullWidth
         />
-        <Button  size='small' label="Submit" type="submit" color="primary">
+        <Button  size='small' label="Submit" type="submit" color="primary" onClick={onClose}>
           Submit
         </Button>
       </div>

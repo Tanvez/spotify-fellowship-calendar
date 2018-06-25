@@ -4,6 +4,7 @@ import axios from 'axios'
 const GOT_EVENTS_FROM_SERVER = 'GOT_EVENTS_FROM_SERVER'
 const ADD_EVENT = 'ADD_EVENT'
 const UPDATE_EVENT = 'UPDATE_EVENT'
+const DELETE_EVENT = 'DELETE_EVENT'
 
 /*Action Creator */
 export const gotEventsFromServer = events => {
@@ -27,6 +28,12 @@ export const updateEvent = updatedEvent => {
   }
 }
 
+export const deleteEvent = deletedEvent=> {
+  return {
+    type: DELETE_EVENT,
+    deletedEvent
+  }
+}
 /* Thunk */
 export const getEvents = ()=> dispatch => 
   axios.get('/api/events')
@@ -34,7 +41,7 @@ export const getEvents = ()=> dispatch =>
   .then(events => {
     dispatch(gotEventsFromServer(events))
   })
-  .catch(err => console.log(err))
+  .catch(err => console.log('Getting events unsuccessful', err))
 
 export const addEvent = (description, start, end, userId) => dispatch => {
   axios.post('/api/events', {description, start, end, userId})
@@ -42,7 +49,7 @@ export const addEvent = (description, start, end, userId) => dispatch => {
     .then(event=>{
       dispatch(addedEvent(event))
     })
-    .catch(err=> console.log(err))
+    .catch(err=> console.log('Adding event unsuccessful',err))
 }
 
 export const editEvent = (id, description, start, end, userId) => dispatch => {
@@ -51,7 +58,14 @@ export const editEvent = (id, description, start, end, userId) => dispatch => {
   .then(event=>{
     dispatch(updateEvent(event))
   })
-  .catch(err=> console.log(err))
+  .catch(err=> console.log('Updating event unsuccessful',err))
+}
+
+export const removeEvent = id => dispatch => {
+  axios.delete(`/api/events/${id}`)
+    .then(()=>{dispatch(deleteEvent(id))
+    })
+    .catch(err=>console.log('Deleting unsuccessful',err))
 }
 
 /*Reducer */
@@ -62,8 +76,9 @@ const reducer = (state = [], action) => {
     case ADD_EVENT:
       return [...state, action.singleEvent]
     case UPDATE_EVENT:
-     const id = action.updatedEvent.id
-      return state.map((event)=>(event.id===id?event=action.updatedEvent:event))
+      return state.map(event=>(event.id===action.updatedEvent.id ? event=action.updatedEvent:event))
+    case DELETE_EVENT:
+      return state.filter(event=>event.id!=action.deletedEvent)
     default:
       return state 
   }

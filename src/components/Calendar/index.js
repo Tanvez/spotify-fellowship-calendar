@@ -3,10 +3,11 @@ import {connect} from 'react-redux'
 import Button from '@material-ui/core/Button';
 
 import './style.css'
-import {SingleDayModal } from '../index'
+import {SingleDayModal} from '../index'
+import {removeEvent} from '../../store'
 
 
-const Calendar = ({month, monthIdx, events})=> { 
+const Calendar = ({month, monthIdx, events, handleDelete})=> { 
      let dayArray = []
   
      const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -19,7 +20,6 @@ const Calendar = ({month, monthIdx, events})=> {
       dayArray.push(<div className='grid-item' key={idx+'spacer'}>{space}</div>)
     }) 
 
-      
      /*Builds the days and the events for each of those days*/
     for(let i = 1; i<=numberOfDays; i++){
       let eventsArr = []
@@ -47,16 +47,19 @@ const Calendar = ({month, monthIdx, events})=> {
                   variant="contained" 
                   size = 'small'
                   color="secondary"
-                  style={{'fontSize':10}}>
+                  style={{'fontSize':10}}
+                  onClick={handleDelete}
+                  value={evt.id}
+                  >
                   Delete</Button>
                 </div>
-              )
+                )
             }
           </div>
         </div>
       )
     }
-    //need todo weekdays!!!
+  
     return (
       <div>
       <h1>{month} 2018</h1>
@@ -85,5 +88,13 @@ const mapState = (state, {monthIdx})=>{
     events:filterState
   }
 }
+const mapDispatch =(dispatch)=>{
+  return {
+    handleDelete(evt){
+      evt.preventDefault()
+      dispatch(removeEvent(evt.currentTarget.value))
+    }
+  }
+}
 
-export default connect(mapState)(Calendar)
+export default connect(mapState, mapDispatch)(Calendar)
