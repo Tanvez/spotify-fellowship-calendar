@@ -6,8 +6,8 @@ const db = require('../../db/db')
 const app = require('../../index')// must be root index.js where express exist
 
   describe('Event routes', ()=>{
-    before(()=>db.sync({force: true}))
-     beforeEach(()=>
+    beforeEach(()=>db.sync({force: true}))
+    beforeEach(()=>
     User.create({ 
       id:1,
       firstName: 'Vesna',
@@ -25,16 +25,61 @@ const app = require('../../index')// must be root index.js where express exist
      })
      )
   )
+
   it('/GET /api/events', (done)=>{
       request(app)
      .get('/api/events')
       .end((err, res)=>{
          expect(res.statusCode).to.equal(200)
          expect(res.body).to.be.an('array') 
+         if (err) return done(err)
         done()
       })
     })
+    
     it('/POST /api/events', (done)=>{
-      //TODO ENTER TEST HERE
+      let data = {
+        "description":"swimming",
+        "start":"2018-01-24 07:30:00.816772-04",
+        "end":"2018-01-24 07:30:00.816772-04",
+        "userId":"1"
+      }
+      request(app)
+      .post('/api/events')
+      .send(data)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(201)
+      .end((err)=>{
+        if (err) return done(err)
+        done()
+      })
     })
+    
+    it('/PUT /api/events', (done)=>{
+      let data = {
+        "id":"1",
+        "description":"Go to the movies",
+        "start":"2018-01-24 07:30:00.816772-04",
+        "end":"2018-01-24 07:30:00.816772-04",
+        "userId":"1"
+      }
+      request(app)
+      .put('/api/events')
+      .send(data)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err)=>{
+        if (err) return done(err)
+        done()
+      })
+    })
+
+    it('/DELETE /api/events/:id', (done)=>{
+      request(app)
+      .delete('/api/events/'+ '1')
+      .expect(204,done)
+    })
+
   })

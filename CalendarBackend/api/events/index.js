@@ -32,7 +32,7 @@ router.put('/', (req,res,next) => {
     where:{id},
     returning: true
   })
-  .then((updatedEvent)=>res.send(updatedEvent[1][0]))
+  .then((updatedEvent)=>res.status(200).send(updatedEvent[1][0]))
   .catch(next)
 })
 

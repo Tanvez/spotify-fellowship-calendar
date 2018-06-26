@@ -6,16 +6,14 @@ const {
   db, 
   User,
   Event
-} = require ('../server/db')
+} = require ('../CalendarBackend/db')
 
 const admins = [
  { 
    id:1,
    firstName: 'Vesna',
     lastName: 'Tan',
-    isAdmin: true,
-    email: 'admin1@spotify-calendar.com',
-    password: '123'
+    isAdmin: true
   }
 ]
 
