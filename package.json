@@ -27,7 +27,7 @@
     "volleyball": "^1.5.1"
   },
   "scripts": {
-    "start": "react-scripts start & npm run start-server ",
+    "start": "node CalenderBackend ",
     "build": "react-scripts build",
     "test-src": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
@@ -35,6 +35,9 @@
     "start-server": "nodemon CalendarBackend -e html,js,scss --ignore public",
     "seed": "node script/seed.js"
   },
+  "engines": {
+    "node": "8.9.3"
+},
   "proxy": "http://localhost:8080/",
   "devDependencies": {
     "chai": "^4.1.2",
