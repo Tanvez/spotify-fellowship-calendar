@@ -8,8 +8,10 @@ Note: I could not change the src folders name to CalendarFrontend because of cre
 
 ##Installation
 Note: if you want to run test otherwise omit this command
-```bash $ createdb spotify-calendar-test 
+```bash 
+$ createdb spotify-calendar-test 
 ```
+
 ```bash
 
 $ git clone
