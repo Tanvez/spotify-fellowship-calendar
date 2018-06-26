@@ -29,19 +29,19 @@ $ npm start
 
 # Specs
 
-• Able to click on a day box, and be able to create a new event on that day which gets sent to the  backend on clicking submit.
-◦Form has a start time, end time, description and submit. 
-◦Once submit is clicked the form should disappear.
-◦Event now appear in that day’s box.
-◦Events cannot span multiple days. Must start and end the same day.
-•Show all events the user has on their calendar.
-•The UI should have 4 rows of 7 boxes (simple case of a 28 day month).
-•The application should communicate with an API backend using JSON.
+- Able to click on a day box, and be able to create a new event on that day which gets sent to the  backend on clicking submit.
+- Form has a start time, end time, description and submit. 
+- Once submit is clicked the form should disappear.
+- Event now appear in that day’s box.
+- Events cannot span multiple days. Must start and end the same day.
+- Show all events the user has on their calendar.
+- The UI should have 4 rows of 7 boxes (simple case of a 28 day month).
+- The application should communicate with an API backend using JSON.
 ## Optional Specs 
-•Switch between months
+- Switch between months
 
 # BACK END
-•Able to update/delete/add/get events.
+- Able to update/delete/add/get events.
 
 
 # Problems I faced and their solutions
