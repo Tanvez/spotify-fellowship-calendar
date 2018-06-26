@@ -27,9 +27,12 @@
     "volleyball": "^1.5.1"
   },
   "scripts": {
-    "start": "react-scripts start & npm run start-server ",
+    "build-client": "webpack",
+    "build-client-watch": "webpack -w",
+    "start": "node server",
     "build": "react-scripts build",
-    "test-src": "react-scripts test --env=jsdom",
+    "start-dev": "NODE_ENV='development' npm run build-client-watch & npm run start-server",
+    "test-client": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "test-server-watch": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/spotify-calendar-test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./src/**/**/*.spec.js  -w",
     "start-server": "nodemon server -e html,js,scss --ignore public",
@@ -37,7 +40,18 @@
   },
   "proxy": "http://localhost:8080/",
   "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-eslint": "^8.1.2",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "css-loader": "^0.28.8",
     "chai": "^4.1.2",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.12.1",
+    "webpack-livereload-plugin": "^2.1.1"
   }
 }
