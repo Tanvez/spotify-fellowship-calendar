@@ -6,7 +6,7 @@ const {
   db, 
   User,
   Event
-} = require ('../CalendarBackend/db')
+} = require ('../server/db')
 
 const admins = [
  { 
