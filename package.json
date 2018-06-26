@@ -32,7 +32,7 @@
     "test-src": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "test-server-watch": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/spotify-calendar-test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./src/**/**/*.spec.js  -w",
-    "start-server": "nodemon server -e html,js,scss --ignore public",
+    "start-server": "node server -e html,js,scss --ignore public",
     "seed": "node script/seed.js"
   },
   "proxy": "http://localhost:8080/",
