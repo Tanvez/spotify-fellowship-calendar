@@ -37,11 +37,16 @@ $ npm start
 - Show all events the user has on their calendar.
 - The UI should have 4 rows of 7 boxes (simple case of a 28 day month).
 - The application should communicate with an API backend using JSON.
-## Optional Specs 
+### Optional Specs 
 - Switch between months
 
-# BACK END
+## BACK END
 - Able to update/delete/add/get events.
+
+## Wireframe 
+
+
+![picture](calendar-wireframe.png)
 
 
 # Problems I faced and their solutions
