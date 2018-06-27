@@ -66,6 +66,6 @@ Note: my deploy branch is available for review if required.
 
 - When I started building this app I was trying to build dates functions from scratch but I soon found out that there is already a Date() function that has methods attached for find the Month, Days in a Month, Weekday of the Month, etc.
 - Alot of my debugging was focused on the front end and passing down props to other components. 
-- I wanted to at least have a ok view but I'm not very creative so my solution to that is to use a library for the interface to save time. I used material-ui for the buttons, tabs and modal/dialog.   
+- I wanted to at least have a pleasing view but I'm not very creative so my solution to that was to use a library. In order to save time I used material-ui for the buttons, tabs and modal/dialog.   
 
 
