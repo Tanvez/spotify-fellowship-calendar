@@ -47599,7 +47599,7 @@ var Calendar = function Calendar(_ref) {
           return _react2.default.createElement(
             'div',
             { className: 'event-description', style: { 'fontSize': 15 }, key: idx },
-            evt.description + ' start at:' + evt.start + ' end at:' + evt.end,
+            evt.description + ' start at:' + helperFormatDateTime(new Date(evt.start)) + ' end at:' + helperFormatDateTime(new Date(evt.end)),
             _react2.default.createElement(_index.SingleDayModal, { month: month, day: i, action: 'Edit Event', event: evt }),
             _react2.default.createElement(
               _Button2.default,
@@ -47670,6 +47670,16 @@ var mapDispatch = function mapDispatch(dispatch) {
       dispatch((0, _store.removeEvent)(evt.currentTarget.value));
     }
   };
+};
+
+var helperFormatDateTime = function helperFormatDateTime(date) {
+  var hrs = date.getHours();
+  var mins = date.getMinutes();
+  var ampm = hrs >= 12 ? 'PM' : 'AM';
+  hrs = hrs % 12;
+  hrs = hrs ? hrs : 12; // if the hour '0' should be '12'
+  mins = mins < 10 ? '0' + mins : mins;
+  return hrs + ':' + mins + ' ' + ampm;
 };
 
 exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(Calendar);
