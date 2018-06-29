@@ -41,7 +41,7 @@ const Calendar = ({month, monthIdx, events, handleDelete})=> {
             {
               eventsArr.map((evt,idx)=>
                 <div className='event-description' style={{'fontSize':15}} key={idx} >
-                { evt.description + ' start at:' + evt.start + ' end at:' + evt.end}
+                { evt.description + ' start at:' + helperFormatDateTime(new Date(evt.start)) + ' end at:' + helperFormatDateTime(new Date(evt.end))}
                 <SingleDayModal month={month} day={i} action={'Edit Event'} event ={evt} />
                   <Button
                   variant="contained" 
@@ -95,6 +95,16 @@ const mapDispatch =(dispatch)=>{
       dispatch(removeEvent(evt.currentTarget.value))
     }
   }
+}
+
+const helperFormatDateTime= (date)=> {
+  let hrs = date.getHours()
+  let mins = date.getMinutes()
+  let ampm = hrs >= 12 ? 'PM' : 'AM'
+  hrs = hrs % 12
+  hrs = hrs ? hrs : 12 // if the hour '0' should be '12'
+  mins = mins < 10 ? '0'+mins : mins
+  return  hrs + ':' + mins + ' ' + ampm
 }
 
 export default connect(mapState, mapDispatch)(Calendar)
